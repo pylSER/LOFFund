@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>LOF Index</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/mycss.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <link href="bootstrap/css/navbar.css" rel="stylesheet">
+
+    <![endif]-->
+</head>
+
+
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #676767; font-family: PingFang">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+           <a class="navbar-brand " href="#" style="margin-left: 50px;margin-right: 50px;margin-top:5px">
+                <img src="bootstrap/loflogo.svg" style="width: 65px">
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav myul">
+                <li id="navli1" style="padding-bottom: 10px;padding-top: 10px" onclick="gotoIndex()"><a href="#" style="font-size: 20px;color: #ffffff;">&nbsp;首页&nbsp;<span class="sr-only">(current)</span></a></li>
+                <li id="navli2" style="padding-bottom: 10px;padding-top: 10px" onclick="gotoFund()"><a href="#" style="font-size: 20px;color: #ffffff;">&nbsp;基金&nbsp;</a></li>
+                <li id="navli3" style="background-color: #575757;padding-bottom: 10px;padding-top: 10px" onclick="gotoDescription()"><a href="#" style="font-size: 20px;color: #ffffff;">&nbsp;算法简介&nbsp;</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+
+
+
+<body style="padding-top: 125px; font-family: PingFang">
+<div style="font-size: 20px;color: #676767;letter-spacing: 1.5px; margin-left: 200px;margin-top:50px;margin-right:150px;margin-bottom: 80px;">
+   <strong style="font-size: 22px;">1.随机数预测算法</strong>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该算法用于预测基金的对数收益率（以下简称收益率）。主要思想为，利用相关指数的收益率乘以权重，拟合对应基金当天的收益率，选择最优的权重组合从而预测下一交易日基金的收益率。公式如下：
+   <br><div style="text-align: center;"><img src="bootstrap/formula.jpg" ></div>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该算法的难点在于权值的估算上。由于各指数的收益率在数值上十分接近，且精度要求较高，利用最小二乘法或回归算法无法适应算法的精度要求，易导致预测偏差，所以采用和为1的随机数组作为权重进行预测。同时，为了消除随机数对预测造成的偶然性影响，算法将会对权值进行训练，即使用10000组随机数组模拟拟合基金当天收益率，选择最优解最终的进行预测。
+    <br>
+    <br>
+    <br><strong style="font-size: 22px;">2.灰色模型预测算法</strong>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;灰色预测是一种对含有不确定因素的系统进行预测的方法。灰色预测通过鉴别系统因素之间发展趋势的相异程度，即进行关联分析，并对原始数据进行生成处理来寻找系统变动的规律，生成有较强规律性的数据序列，然后建立相应的微分方程模型，从而预测事物未来发展趋势的状况。
+该算法主要用于预测大盘（上证综指）的收盘价。算法主要思想为，将非线性的大盘收盘价（如图1）通过逐天累加，转化成一条接近线性的函数，（如图2）
+    <br>
+    <div style="text-align: center;">
+    <img src="bootstrap/img1.png" > <img src="bootstrap/img2.png" ></div>
+    <br>采用回归分析对函数进行刻画，然后求导得到相应的白化方程进行预测。公式如下：
+    <br>
+    X0={x0(1),x0(2),x0(3)…x0(k) }，为非负的原始数据序列
+    <br>X1={x1(1),x1(2),x1(3)…x1(k)}，其中X1(n)=x0(1)+x0(2)+…+x0(n)
+   <br> Z1={z1(2),z1(3)…z1(k) }，其中Z1(n)=(x1(n)+x(n-1))/2
+   <br>
+   <br>假定X0(k) + a * Z1(k) = b， 把X0(k)看成是Z1(k)的导数，则有：
+    <br>dX1 / dt + a * X1 = b &nbsp; &nbsp; &nbsp;求导得：
+     <br>dX1 / dt = -1(y0 - b/a) * exp(-a(t - t0)) &nbsp; &nbsp; 使用dX1 / dt来近似x0，即有：
+     <br>x0(k)= -a * (y0 - b/a) * exp(-a(k - t0)) &nbsp; &nbsp; 从而得到预测值：
+    <br><img src="bootstrap/img3.png"> 
+    <br>灰色模型对大盘价格波动较为敏感，可以较为有效地预测大盘走势。相较神经网络在运算速度和预测稳定程度上有优势。
+    <br>
+    <br>
+    <br><strong style="font-size: 22px;">3.文本情感分析算法：</strong>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该算法用于分析舆论对股市评价的倾向性，即通过对文本的分析筛选有效关键词，并根据这些关键词的情感属性和概率属性总结出舆论在股市评价上的倾向。
+算法的主要采用NGram算法，具体介绍如下：
+    <br>
+    <br><strong>(1)概括</strong>
+     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设一个句子S可以表示为一个序列S=w1w2…wn，语言模型就是求句子S在某一情感环境下出现的概率P(S)：
+    <br><br><div style="text-align: center;"><img src="bootstrap/img4.png" > </div>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个概率的计算量太大，解决问题的方法是将所有历史w1w2…wi-1按照某个规则映射到等价类S(w1w2…wi-1)，等价类的数目远远小于不同历史的数目，即假定：
+   <br><div style="text-align: center;"><img src="bootstrap/img5.png"> </div>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当两个历史的最近的N-1个词（或字）相同时，映射两个历史到同一个等价类，在此情况下的模型称之为N-Gram模型。
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N-Gram模型被称为一阶马尔科夫链。 N的值不能太大，否则计算仍然太大。
+根据最大似然估计，语言模型的参数：
+   <br><br><div style="text-align: center;"><img src="bootstrap/img6.png"> </div>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中，C(w1w2…wi)表示w1w2…wi在训练数据中出现的次数
+   <br><strong>(２)平滑技术的引入</strong>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;传统的估计方法对于随机变量£的N次独立观察的样本容量N有如下要求：
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N>>K
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中K为随机变量能够取到的值的个数。而在实际语言模型中往往无法满足这个要求。
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设k泛指某一事件，N(k)表示事件k观察到的频数，极大似然法使用相对频数作为对事件k的概率估计：
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　p(k)=N(k)/N
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在语言模型中，训练语料中大量的事件N(k)=0，这显然没有反映真实情况。我们把这个问题称为数据稀疏问题。
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此平滑技术可以去除不必要的ｋ事件，避免N(k)=0的情况。在算法中我们采用了基于lambda表达式的平滑方法。
+   <br><strong>(３)计数等价类</strong>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据对称性原理，事件除了出现次数之外不应具有细节特征，即所有具有相同计数r=N(k)的事件k（事件出现的次数称为事件的计数）应当具有相同的概率估计值，这些计数相同的事件称为计数等价，将它们组成的一个等价类记为计数等价类Gr。
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于计数为r的计数等价类，定义nr为等价类中成员的个数，pr为等价类中事件的概率，R是最大可能出现的计数次数，则
+   <br><br><div style="text-align: center;"><img src="bootstrap/img7.png"> </div>
+   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些计数等价类就是之后对输入数据进行等价替换从而实现情感分类的主要依据。
+</div>
+
+<!--<span class="glyphicon glyphicon-search form-control-feedback" style="color: #dc1c10;font-size: 30px;"></span>-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/myjs.js"></script>
+<script src="bootstrap/js/jump.js"></script>
+</body>
+
+<footer style="bottom: 0px;position: absolute;width: 100%">
+    <div class="panel-footer navbar-fixed-bottom" style="text-align: center;background-color: #eeeeee;">
+        <span style=";font-size: 16px;letter-spacing: 0.5px;color: #676767;">
+            Copyright&copy;LOF基金套利&nbsp;
+        </span>
+        <span style="color: #9e9e9e;font-size: 16px">
+            基于人工智能
+        </span>
+    </div>
+</footer>
+
+</html>

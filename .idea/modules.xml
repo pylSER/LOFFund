@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/lofFund.iml" filepath="$PROJECT_DIR$/lofFund.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-blService/lofFund-blService.iml" filepath="$PROJECT_DIR$/lofFund-blService/lofFund-blService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-business/lofFund-business.iml" filepath="$PROJECT_DIR$/lofFund-business/lofFund-business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-data/lofFund-data.iml" filepath="$PROJECT_DIR$/lofFund-data/lofFund-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-dataService/lofFund-dataService.iml" filepath="$PROJECT_DIR$/lofFund-dataService/lofFund-dataService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-po/lofFund-po.iml" filepath="$PROJECT_DIR$/lofFund-po/lofFund-po.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-vo/lofFund-vo.iml" filepath="$PROJECT_DIR$/lofFund-vo/lofFund-vo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lofFund-web/lofFund-web.iml" filepath="$PROJECT_DIR$/lofFund-web/lofFund-web.iml" />
+    </modules>
+  </component>
+</project>

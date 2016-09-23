@@ -1,0 +1,77 @@
+.resrow{
+    height: 80px;
+    margin-top: 15px;
+}
+
+.resbar{
+    height: 80px;
+    background-color: #f9f9f9;
+    transition:.3s;
+    -webkit-transition:.3s;
+}
+
+.resbar:hover{
+    box-shadow: 0 4px 8px 0 rgba(86, 26, 26, 0.23);
+    cursor: pointer;
+}
+
+.three{
+    /*border: solid 1px black;*/
+    height: 80px;
+    float: left;
+    width: 24%;
+
+}
+
+.two {
+    /*border: solid 1px black;*/
+    height: 80px;
+    float: left;
+    width: 28%;
+}
+
+.titlefont{
+    font-size: 26px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 0.7px;
+    color: #7b7b7b;
+    display: inline
+}
+
+.titlenumfont{
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 0.5px;
+    color: #b9b9b9;
+}
+
+.profiticon{
+    width:60px;
+    height: 26px;
+    border-radius: 2px;
+    background-color: #dc1c10;
+    color: white;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    text-align: center;
+    vertical-align: top;
+    padding-right: 0px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 5px
+}
+
+.bardata{
+
+    font-size: 22px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #676767;
+}
